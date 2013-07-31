@@ -14,7 +14,7 @@ Automate the installation and execution of virus removal tools
 + pywinauto (tested with 4.2.0)
 
 ## Running
-Options are listed at the begginning of each file. Most take a parameter '-e', followed by the path the the executable you wish to run. 
+Options are listed at the begginning of each file, and can be listed with -h or --help. Most take a parameter -e, followed by the path the the executable you wish to run. 
 ```sh
 python <scriptname> <options>
 ```
