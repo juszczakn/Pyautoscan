@@ -1,7 +1,8 @@
 Pyautoscan
 ==========
 
-Automate the installation and execution of virus removal tools
+Automate the installation and execution of virus removal tools. 
+Note these only bother covering steps that can not be completely covered from command line.
 + Ninite
 + ESET
 + Malwarebytes Anti-Malware
