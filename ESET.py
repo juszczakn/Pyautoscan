@@ -33,16 +33,6 @@ import sys
 from pywinauto import application
 from winsound import Beep
 
-print 'Remember, -h or --help for help!\n'
-beepFreq = 2500
-beepDur = 1000
-
-def beep():
-    try:
-        Beep(beepFreq, beepDur)
-    except:
-        print 'Unable to beep... :('
-
 # Default values
 args = {'executable':''}
 
@@ -55,6 +45,18 @@ if len(sys.argv) > 1:
             print '\t-e or --executable <path> | Path to ESET executable'
             print '\t-h or --help | This screen'
             sys.exit(0)
+
+
+print 'Remember, -h or --help for help!\n'
+beepFreq = 2500
+beepDur = 1000
+
+def beep():
+    try:
+        Beep(beepFreq, beepDur)
+    except:
+        print 'Unable to beep... :('
+
 
 def runEset():
     app = application.Application().start_(args['executable'])

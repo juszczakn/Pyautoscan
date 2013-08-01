@@ -23,21 +23,13 @@ THE SOFTWARE.
 '''
 '''
 Script for automating the run of Ninite
-Last Modified: July 26, 2013
+Last Modified: July 31, 2013
 '''
 
-import pywinauto, time, sys
+import pywinauto
+import time
+import sys
 from pywinauto import application
-
-print 'Remember, -h or --help for help!\n'
-beepFreq = 2500
-beepDur = 1000
-
-def beep():
-    try:
-        Beep(beepFreq, beepDur)
-    except:
-        print 'Unable to beep... :('
 
 # cli parameter parsing
 args = {'ninite':''}
@@ -50,6 +42,17 @@ if len(sys.argv) > 1:
             print '\t-e or --executable | Path to exectuable, including filename'
             print '\t-h or --help | This page'
             sys.exit(0)
+
+print 'Remember, -h or --help for help!\n'
+beepFreq = 2500
+beepDur = 1000
+
+def beep():
+    try:
+        Beep(beepFreq, beepDur)
+    except:
+        print 'Unable to beep... :('
+
 
 #Runs the Ninite executable
 def runNinite():
