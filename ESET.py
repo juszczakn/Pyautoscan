@@ -68,7 +68,7 @@ def beep():
     try:
         Beep(beepFreq, beepDur)
     except:
-        print 'Unable to beep... :('
+        log.error('Unable to beep... :(')
 
 
 def runEset():
@@ -80,14 +80,14 @@ def runEset():
         time.sleep(1)
         
     if attempts == 0:
-        print 'Error starting ESET'
+        log.error('Error starting ESET')
         beep()
         sys.exit(-1)
         
     app['Terms of use'].CheckBox.Click()
     app['Terms of use'].Button.Click()
 
-    print 'Terms of use window closed'
+    log.info('Terms of use window closed')
     
     dlg = None
     attempts = 60
@@ -99,12 +99,12 @@ def runEset():
             time.sleep(2)
 
     if attempts == 0:
-        print 'Error: timeout starting ESET'
+        log.error('Error: timeout starting ESET')
         beep()
         sys.exit(-1)
 
     app['ESET Online Scanner'].Start.Click()
-    print 'Started scan'
+    log.info('Started scan')
 
     attempts = 4000
     while 'Finish' not in app['ESET Online Scanner'].Button.GetProperties()['Texts'][0] and attempts > 0:
@@ -112,22 +112,21 @@ def runEset():
         time.sleep(6)
 
     if attempts == 0:
-        print 'Error: timeout running ESET'
+        log.error('Error: timeout running ESET')
         beep()
         sys.exit(-1)
 
     app['ESET Online Scanner'].CheckBox.Click()
-    print 'Uninstall Clicked'
+    log.error('Uninstall Clicked')
     time.sleep(5)
     
     app['ESET Online Scanner'].FinishButton.Click()
-    print 'Finish Clicked'
+    log.info('Finish Clicked')
     time.sleep(5)
     
     app.kill_()
 
-    print "ESET Successfully ran and closed"
-
+    log.info("ESET Successfully ran and closed")
 
 if __name__ == '__main__':
     runEset()

@@ -25,11 +25,7 @@ THE SOFTWARE.
 Script for automating the running of Spybot
 and uninstalling
 
-<<<<<<< HEAD
 Last Modified: August 5, 2013
-=======
-Last Modified: July 31, 2013
->>>>>>> 6c5bd96d02642efb4442c6ce09cbd6cb3691c8fa
 '''
 
 import pywinauto
@@ -79,7 +75,7 @@ def beep():
     try:
         Beep(beepFreq, beepDur)
     except:
-        print 'Unable to beep... :('
+        log.info('Unable to beep... :(')
 
 
 def uninstallSpybot():

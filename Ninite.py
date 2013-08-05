@@ -70,12 +70,12 @@ def beep():
     try:
         Beep(beepFreq, beepDur)
     except:
-        print 'Unable to beep... :('
+        log.info('Unable to beep... :('
 
 
 #Runs the Ninite executable
 def runNinite():
-    print 'Starting ', args['ninite']
+    log.info('Starting ', args['ninite']
     #Start the Ninite Application
     app = application.Application().start_(args['ninite'])
 
@@ -91,11 +91,11 @@ def runNinite():
 
     #If the connection timed out, print error. 
     if dlg == None:
-        print "Error connecting to Ninite: timed out"
+        log.info("Error connecting to Ninite: timed out"
         beep()
         sys.exit(-1)
     else:
-        print 'Ninite successfully started and connected'
+        log.info('Ninite successfully started and connected'
 
     #Check to see whether Ninite has finished installing or not.
     #600 attempts = ~20 minutes
@@ -109,11 +109,11 @@ def runNinite():
 
     #Check to see whether or not Ninite timed out
     if attempts == 0:
-        print 'Timed out installing.'
+        log.info('Timed out installing.'
         beep()
         sys.exit(-1)
     else:
-        print 'Installation Succeeded!'
+        log.info('Installation Succeeded!'
         app.kill_()
 
 
