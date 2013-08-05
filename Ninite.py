@@ -22,19 +22,22 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 '''
 '''
-<<<<<<< HEAD
 Script for automating the running of Ninite
 Last Modified: August 5, 2013
-=======
-Script for automating the run of Ninite
-Last Modified: July 31, 2013
->>>>>>> 6c5bd96d02642efb4442c6ce09cbd6cb3691c8fa
 '''
 
-import pywinauto
-import time
-import sys
+import pywinauto, time, sys
 from pywinauto import application
+
+print 'Remember, -h or --help for help!\n'
+beepFreq = 2500
+beepDur = 1000
+
+def beep():
+    try:
+        Beep(beepFreq, beepDur)
+    except:
+        print 'Unable to beep... :('
 
 # cli parameter parsing
 args = {'ninite':''}
@@ -61,17 +64,6 @@ if len(sys.argv) > 1:
             print '\t-l or --logfile <path> | log file'
             print '\t-h or --help | This page'
             sys.exit(0)
-
-print 'Remember, -h or --help for help!\n'
-beepFreq = 2500
-beepDur = 1000
-
-def beep():
-    try:
-        Beep(beepFreq, beepDur)
-    except:
-        print 'Unable to beep... :('
-
 
 #Runs the Ninite executable
 def runNinite():
