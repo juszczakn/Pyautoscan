@@ -22,9 +22,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 '''
 '''
-Script for automating the run of ESET
+Script for automating the running of ESET
 
-Last Modified: July 29, 2013
+Last Modified: August 5, 2013
 '''
 
 import pywinauto
@@ -45,14 +45,27 @@ def beep():
 
 # Default values
 args = {'executable':''}
+# Logging
+log = logging.getLogger()
+ch = logging.StreamHandler(sys.stdout)
+ch.setFormatter(logging.Formatter('%(message)s'))
+log.addHandler(ch)
+log.setLevel(logging.INFO)
 
 if len(sys.argv) > 1:
     for index,arg in enumerate(sys.argv):
         if arg == '-e' or arg == '--executable':
             args['executable'] = sys.argv[index + 1]
+        if arg == '-l' or arg == '--logfile':
+            hdlr = logging.FileHandler(sys.argv[index + 1])
+            formatter = logging.Formatter('%(asctime)s %(levelname)s %(message)s')
+            hdlr.setFormatter(formatter)
+            log.addHandler(hdlr)
+            log.setLevel(logging.INFO)
         if arg == '-h' or arg == '--help':
             print 'Options are:'
             print '\t-e or --executable <path> | Path to ESET executable'
+            print '\t-l or --logfile <path> | log file'
             print '\t-h or --help | This screen'
             sys.exit(0)
 

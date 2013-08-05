@@ -22,8 +22,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 '''
 '''
-Script for automating the run of Ninite
-Last Modified: July 26, 2013
+Script for automating the running of Ninite
+Last Modified: August 5, 2013
 '''
 
 import pywinauto, time, sys
@@ -41,13 +41,27 @@ def beep():
 
 # cli parameter parsing
 args = {'ninite':''}
+# Logging
+log = logging.getLogger()
+ch = logging.StreamHandler(sys.stdout)
+ch.setFormatter(logging.Formatter('%(message)s'))
+log.addHandler(ch)
+log.setLevel(logging.INFO)
+
 if len(sys.argv) > 1:
     for index,arg in enumerate(sys.argv):
         if arg == '-e' or arg == '--executable':
             args['ninite'] = sys.argv[index + 1]
+        if arg == '-l' or arg == '--logfile':
+            hdlr = logging.FileHandler(sys.argv[index + 1])
+            formatter = logging.Formatter('%(asctime)s %(levelname)s %(message)s')
+            hdlr.setFormatter(formatter)
+            log.addHandler(hdlr)
+            log.setLevel(logging.INFO)
         if arg == '-h' or arg == '--help':
             print 'Options arg:'
             print '\t-e or --executable | Path to exectuable, including filename'
+            print '\t-l or --logfile <path> | log file'
             print '\t-h or --help | This page'
             sys.exit(0)
 

@@ -22,14 +22,16 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 '''
 '''
-Script for automating the run of Spybot
+Script for automating the running of Spybot
+and uninstalling
 
-Last Modified: July 24, 2013
+Last Modified: August 5, 2013
 '''
 
 import pywinauto
 import time
 import sys
+import logging
 from pywinauto import application
 from winsound import Beep
 
@@ -46,6 +48,12 @@ def beep():
 # Default values
 args = {'executable':'',
         'uninstall':False}
+# Logging
+log = logging.getLogger()
+ch = logging.StreamHandler(sys.stdout)
+ch.setFormatter(logging.Formatter('%(message)s'))
+log.addHandler(ch)
+log.setLevel(logging.INFO)
 
 # Check parameters
 if len(sys.argv) > 1:
@@ -54,10 +62,17 @@ if len(sys.argv) > 1:
             args['executable'] = sys.argv[index + 1]
         if arg == '-u' or arg == '--uninstall':
             args['uninstall'] = True
+        if arg == '-l' or arg == '--logfile':
+            hdlr = logging.FileHandler(sys.argv[index + 1])
+            formatter = logging.Formatter('%(asctime)s %(levelname)s %(message)s')
+            hdlr.setFormatter(formatter)
+            log.addHandler(hdlr)
+            log.setLevel(logging.INFO)
         if arg == '-h' or arg == '--help':
             print 'Options are:'
             print '\t-e or --executable <path> | Path to Spybot executable'
             print '\t-u or --uninstall | Uninstall Spybot'
+            print '\t-l or --logfile <path> | log file'
             print '\t-h or --help | This screen'
             sys.exit(-1)
 
@@ -77,7 +92,7 @@ def uninstallSpybot():
 
     # Prompt did not show up.
     if dlg == None:
-        print 'Error uninstalling Spybot'
+        log.error('Error uninstalling Spybot')
         beep()
         sys.exit(-1)
 
@@ -89,7 +104,7 @@ def uninstallSpybot():
 
     # timeout
     if attempts == 0:
-        print 'Unable to uninstall Spybot'
+        log.error('Unable to uninstall Spybot')
         beep()
         sys.exit(-1)
 
@@ -98,9 +113,9 @@ def uninstallSpybot():
         app.dlg.UninstallButton.Click()
     except:
         beep()
-        print 'Error clicking button'
+        log.error('Error clicking button')
 
-    print 'Spybot successfully uninstalled'
+    log.info('Spybot successfully uninstalled')
     
 
 # Run Spybot default
@@ -114,7 +129,7 @@ def runSpybot():
         time.sleep(2)
 
     if attempts == 0:
-        print 'Error: timeout starting Spybot'
+        log.error('Error: timeout starting Spybot')
         beep()
         sys.exit(-1)
     
@@ -122,7 +137,7 @@ def runSpybot():
     dlg = app['Legal stuffTformLegals']
     dlg.OK.Click()
 
-    print 'Spybot succesfully started.'
+    log.info('Spybot succesfully started.')
 
     # Wait for program to stop running before exiting
     attempts = 1200
@@ -131,11 +146,11 @@ def runSpybot():
         time.sleep(6)
 
     if attempts == 0:
-        print 'Error: timeout running Spybot'
+        log.error('Error: timeout running Spybot')
         beep()
         sys.exit(-1)
 
-    print 'Spybot finished successfully.'
+    log.info('Spybot finished successfully.')
 
 
 
