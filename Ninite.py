@@ -30,6 +30,7 @@ Last Modified: August 5, 2013
 import pywinauto
 import time
 import sys
+import logging
 from pywinauto import application
 
 # cli parameter parsing
@@ -71,7 +72,7 @@ def beep():
 
 #Runs the Ninite executable
 def runNinite():
-    log.info('Starting ', args['ninite'])
+    log.info('Starting ' + args['ninite'])
     #Start the Ninite Application
     app = application.Application().start_(args['ninite'])
 

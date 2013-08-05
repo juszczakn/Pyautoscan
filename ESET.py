@@ -30,6 +30,7 @@ Last Modified: August 5, 2013
 import pywinauto
 import time
 import sys
+import logging
 from pywinauto import application
 from winsound import Beep
 
