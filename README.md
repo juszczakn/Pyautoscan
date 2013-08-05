@@ -16,7 +16,9 @@ Note these only bother covering steps that can not be completely covered from co
 
 ## Running
 Options are listed at the beginning of each file, and can be listed with -h or --help. They all take a parameter -e, followed by the path the the executable you wish to run.
-You might encounter some quirks when running these with UAC enabled, as 
+You might encounter some quirks when running these with UAC enabled.
+
+
 ```sh
 python <scriptname> <options>
 ```
