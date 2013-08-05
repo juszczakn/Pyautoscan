@@ -22,13 +22,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 '''
 '''
-<<<<<<< HEAD
 Script for automating the running of Ninite
+
 Last Modified: August 5, 2013
-=======
-Script for automating the run of Ninite
-Last Modified: July 31, 2013
->>>>>>> 6c5bd96d02642efb4442c6ce09cbd6cb3691c8fa
 '''
 
 import pywinauto
@@ -70,12 +66,12 @@ def beep():
     try:
         Beep(beepFreq, beepDur)
     except:
-        log.info('Unable to beep... :('
+        log.info('Unable to beep... :(')
 
 
 #Runs the Ninite executable
 def runNinite():
-    log.info('Starting ', args['ninite']
+    log.info('Starting ', args['ninite'])
     #Start the Ninite Application
     app = application.Application().start_(args['ninite'])
 
@@ -91,11 +87,11 @@ def runNinite():
 
     #If the connection timed out, print error. 
     if dlg == None:
-        log.info("Error connecting to Ninite: timed out"
+        log.info("Error connecting to Ninite: timed out")
         beep()
         sys.exit(-1)
     else:
-        log.info('Ninite successfully started and connected'
+        log.info('Ninite successfully started and connected')
 
     #Check to see whether Ninite has finished installing or not.
     #600 attempts = ~20 minutes
@@ -109,11 +105,11 @@ def runNinite():
 
     #Check to see whether or not Ninite timed out
     if attempts == 0:
-        log.info('Timed out installing.'
+        log.info('Timed out installing.')
         beep()
         sys.exit(-1)
     else:
-        log.info('Installation Succeeded!'
+        log.info('Installation Succeeded!')
         app.kill_()
 
 
