@@ -113,23 +113,27 @@ def uninstallSpybot():
         log.error('Error clicking button')
 
     log.info('Spybot successfully uninstalled')
-    
+
 
 # Run Spybot default
 def runSpybot():
     app = application.Application().start_(args['executable'] + ' /autoimmunize /autocheck /autofix /autoclose')
 
+    time.sleep(10)
+
+    try:
+        error = application.Application().connect(title_re='Error')
+        if error['Error'].Exists():
+            error['Error'].Ok.Click()
+    except:
+        log.info('No error window found')
+
     # Wait for popup
     # TODO: fix problem
     attempts = 100
-    while not app['Legal stuffTformLegals'].Exists(timeout=1) and attempts > 0:
+    dlg = None
+    while not app['Legal stuffTformLegals'].Exists() and attempts > 0:
         # Spybot loves to think it's corrupted
-        try:
-            error = application.Application().connect(title_re='Error')
-            if error['Error'].Exists(timeout=1):
-                error['Error'].OK.Click()
-        except:
-            print attempts
         attempts -= 1
         time.sleep(2)
 
@@ -138,17 +142,16 @@ def runSpybot():
         beep()
         sys.exit(-1)
 
-    log.info('Terms accepted')
-    
     # Click popup when it appears
     dlg = app['Legal stuffTformLegals']
     dlg.OK.Click()
+    log.info('Terms accepted')
 
     log.info('Spybot succesfully started.')
 
     # Wait for program to stop running before exiting
     attempts = 1200
-    while app['Spybot - Search & Destroy'].Exists(timeout=1) and attempts > 0:
+    while app['Spybot - Search & Destroy'].Exists() and attempts > 0:
         attempts -= 1
         time.sleep(6)
 
