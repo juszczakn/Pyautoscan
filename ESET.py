@@ -73,7 +73,7 @@ def runEset():
     app = application.Application().start_(args['executable'])
 
     attempts = 10
-    while not app['Terms of use'].Exists(timeout=5) and attempts > 0:
+    while not app['Terms of use'].Exists() and attempts > 0:
         attempts -= 1
         time.sleep(1)
         
